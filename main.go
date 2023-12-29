@@ -1,10 +1,9 @@
 package main
 
-import "fmt"
+import "github.com/gin-gonic/gin"
 
 func main() {
-	fmt.Println("Hola mundo")
+	r := gin.Default()
 
-	fmt.Println()
-
+	r.Run()
 }

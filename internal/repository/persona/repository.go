@@ -13,6 +13,7 @@ const (
 
 type Repository interface {
 	GetAll(ctx context.Context) ([]model.Persona, error)
+	GetById(ctx context.Context, id int64) (model.Persona, error)
 }
 
 type repository struct {
@@ -55,7 +56,7 @@ func (r *repository) GetById(ctx context.Context, id int64) (model.Persona, erro
 		&persona.Apellido,
 		&persona.Edad,
 	)
-
+	
 	if err != nil {
 		return model.Persona{}, err
 	}

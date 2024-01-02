@@ -3,6 +3,7 @@ package handler
 import (
 	"ejemplo/internal/domain/personas"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,5 +28,23 @@ func (p *Persona) GetAll() gin.HandlerFunc {
 		}
 
 		ctx.JSON(http.StatusOK, personas)
+	}
+}
+
+func (p *Persona) GetById() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id, err := strconv.Atoi(ctx.Param("id"))
+		if err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			return
+		}
+
+		persona, err := p.service.GetById(ctx, int64(id))
+		if err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			return
+		}
+
+		ctx.JSON(http.StatusOK, persona)
 	}
 }

@@ -8,6 +8,7 @@ import (
 
 type Service interface {
 	GetAll(ctx context.Context) ([]model.Persona, error)
+	GetById(ctx context.Context, id int64) (model.Persona, error)
 }
 
 type service struct {
@@ -22,4 +23,8 @@ func NewService(repository persona.Repository) Service {
 
 func (s *service) GetAll(ctx context.Context) ([]model.Persona, error) {
 	return s.repository.GetAll(ctx)
+}
+
+func (s *service) GetById(ctx context.Context, id int64) (model.Persona, error) {
+	return s.repository.GetById(ctx, id)
 }

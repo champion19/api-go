@@ -40,4 +40,5 @@ func (r *router) buildPersonaRoutes() {
 	pr := r.rg.Group("/personas")
 
 	pr.GET("", handler.GetAll())
+	pr.GET("/:id", handler.GetById())
 }

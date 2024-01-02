@@ -15,14 +15,14 @@ type Router interface {
 
 type router struct {
 	eng *gin.Engine
-	rg *gin.RouterGroup
-	db *sql.DB
+	rg  *gin.RouterGroup
+	db  *sql.DB
 }
 
 func NewRouter(eng *gin.Engine, db *sql.DB) Router {
 	return &router{
 		eng: eng,
-		db: db,
+		db:  db,
 	}
 }
 

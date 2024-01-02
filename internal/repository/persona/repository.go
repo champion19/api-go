@@ -8,6 +8,7 @@ import (
 
 const (
 	queryGetAll = "SELECT * FROM personas"
+	queryGetById = "SELECT * FROM personas WHERE id = ?"
 )
 
 type Repository interface {
@@ -43,4 +44,21 @@ func (r *repository) GetAll(ctx context.Context) ([]model.Persona, error) {
 	}
 
 	return personas, nil
+}
+
+func (r *repository) GetById(ctx context.Context, id int64) (model.Persona, error) {
+	row := r.db.QueryRowContext(ctx, queryGetById, id)
+	persona := model.Persona{}
+	err := row.Scan(
+		&persona.ID,
+		&persona.Nombre,
+		&persona.Apellido,
+		&persona.Edad,
+	)
+
+	if err != nil {
+		return model.Persona{}, err
+	}
+
+	return persona, nil
 }
